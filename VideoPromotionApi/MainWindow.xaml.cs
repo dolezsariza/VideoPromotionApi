@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VideoPromotionApi.Services;
 
 namespace VideoPromotionApi
 {
@@ -46,6 +47,18 @@ namespace VideoPromotionApi
             VideoProcessor = new VideoProcessor(ApiHelper, url);
             DataContext = this;
         }
+
+        private async Task LoadVideo()
+        {
+            var videoModel = await VideoProcessor.LoadVideo();
+            var substituteThumbnail = $"https:{videoModel.Data.Videos[0].ThumbImage}";
+            var uriSource = new Uri(substituteThumbnail, UriKind.Absolute);
+            videoImage.Source = new BitmapImage(uriSource);
+
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            await LoadVideo();
         }
     }
 }
