@@ -20,9 +20,32 @@ namespace VideoPromotionApi
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string UserName { get; set; }
+        public string API_KEY { get; set; }
+        public string IPAddress { get; set; }
+        public ApiHelper ApiHelper { get; set; }
+        public VideoProcessor VideoProcessor { get; set; }
+        public IPGetter IPGetter { get; set; }
+        public FileHandler FileHandler { get; set; }
+        private string[] textData;
+        private string baseUrl;
         public MainWindow()
         {
             InitializeComponent();
+            baseUrl = "https://pt.potawe.com/api/video-promotion/v1/list";
+            ApiHelper = new ApiHelper(baseUrl);
+            FileHandler = new FileHandler();
+            IPGetter = new IPGetter();
+            textData = FileHandler.ReadFromFile();
+            UserName = textData[0];
+            API_KEY = textData[1];
+            IPAddress = IPGetter.GetIpOfHost();
+            var url = $"{baseUrl}?psid={UserName}&pstool=421_1&accessKey={API_KEY}&ms_notrack=1&campaign_id=&" +
+                $"type=&sexualOrientation=straight&forcedPerformers=&limit=25&" +
+                $"primaryColor=%23A474C4&labelColor=%23FFFFFF&clientIp={IPAddress}";
+            VideoProcessor = new VideoProcessor(ApiHelper, url);
+            DataContext = this;
+        }
         }
     }
 }
