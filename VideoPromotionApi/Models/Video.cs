@@ -12,6 +12,7 @@ namespace VideoPromotionApi.Models
         public string ThumbImage { get; set; }
         public List<string> PreviewImages { get; set; }
         public string Quality { get; set; }
+        public bool IsHd { get; set; }
         public string Uploader { get; set; }
     }
 }
