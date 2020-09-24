@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VideoPromotionApi.Models;
 using VideoPromotionApi.Services;
 
 namespace VideoPromotionApi
@@ -24,12 +25,14 @@ namespace VideoPromotionApi
         public string UserName { get; set; }
         public string API_KEY { get; set; }
         public string IPAddress { get; set; }
+        public List<Display> DataToShow { get; set; }
         public ApiHelper ApiHelper { get; set; }
         public VideoProcessor VideoProcessor { get; set; }
         public IPGetter IPGetter { get; set; }
         public FileHandler FileHandler { get; set; }
         private string[] textData;
         private string baseUrl;
+   
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +40,7 @@ namespace VideoPromotionApi
             ApiHelper = new ApiHelper(baseUrl);
             FileHandler = new FileHandler();
             IPGetter = new IPGetter();
+            DataToShow = new List<Display>();
             textData = FileHandler.ReadFromFile();
             UserName = textData[0];
             API_KEY = textData[1];
@@ -51,14 +55,23 @@ namespace VideoPromotionApi
         private async Task LoadVideo()
         {
             var videoModel = await VideoProcessor.LoadVideo();
-            var substituteThumbnail = $"https:{videoModel.Data.Videos[0].ThumbImage}";
-            var uriSource = new Uri(substituteThumbnail, UriKind.Absolute);
-            videoImage.Source = new BitmapImage(uriSource);
-
+            foreach(var video in videoModel.Data.Videos)
+            {
+                var thumbnailLink = $"https:{video.PreviewImages[0]}";
+                var uriSource = new Uri(thumbnailLink, UriKind.Absolute);
+                var data = new Display(new BitmapImage(uriSource), 
+                    video.Title, 
+                    video.Duration, 
+                    video.Quality, 
+                    video.Uploader, 
+                    video.Tags);
+                DataToShow.Add(data);
+            }
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             await LoadVideo();
+            videoDataList.ItemsSource = DataToShow;
         }
     }
 }

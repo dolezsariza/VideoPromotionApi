@@ -5,17 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VideoPromotionApi"
         mc:Ignorable="d" Loaded="Window_Loaded" 
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="previousButton" Padding="15" Margin="15">Previous</Button>
-            <Button x:Name="nextButton" Padding="15" Margin="15">Next</Button>
-        </StackPanel>
-        <Image Grid.Row="1" x:Name="videoImage" />
-    </Grid>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="previousButton" Padding="15" Margin="15">Previous</Button>
+                <Button x:Name="nextButton" Padding="15" Margin="15">Next</Button>
+            </StackPanel>
+
+            <ItemsControl Grid.Row="1" Name="videoDataList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Name="Video" Margin="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="DescColumn"/>
+                                <ColumnDefinition x:Name="ImgColumn"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Name="Description" Grid.Column="0" Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition x:Name="TitleRow" MinHeight="40"/>
+                                    <RowDefinition x:Name="DurRow"/>
+                                    <RowDefinition x:Name="QualRow"/>
+                                    <RowDefinition x:Name="UplRow"/>
+                                    <RowDefinition x:Name="TagRow"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{Binding Title}"/>
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding Duration}"/>
+                                <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{Binding Quality , StringFormat={}Quality: {0}}"/>
+                                <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="{Binding Uploader, StringFormat={}By: {0}}"/>
+                                <ComboBox Grid.Row="4" Margin="20" ItemsSource="{Binding Tags}"
+                                          Focusable="False" IsEditable="True" IsReadOnly="True" Text="Tags">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                            <Image Name="Preview" Grid.Column="1" Source="{Binding VideoImage}" Height="125" Width="200"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+    </ScrollViewer>
 </Window>
