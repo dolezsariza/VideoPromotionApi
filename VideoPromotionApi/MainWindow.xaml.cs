@@ -45,9 +45,7 @@ namespace VideoPromotionApi
             UserName = textData[0];
             API_KEY = textData[1];
             IPAddress = IPGetter.GetIpOfHost();
-            var url = $"{baseUrl}?psid={UserName}&pstool=421_1&accessKey={API_KEY}&ms_notrack=1&campaign_id=&" +
-                $"type=&sexualOrientation=straight&forcedPerformers=&limit=25&" +
-                $"primaryColor=%23A474C4&labelColor=%23FFFFFF&clientIp={IPAddress}";
+            var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}";
             VideoProcessor = new VideoProcessor(ApiHelper, url);
             DataContext = this;
         }
