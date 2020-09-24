@@ -65,6 +65,7 @@ namespace VideoPromotionApi
                     video.Quality, 
                     video.Uploader, 
                     video.Tags);
+                data.Tags.Sort();
                 DataToShow.Add(data);
             }
         }
