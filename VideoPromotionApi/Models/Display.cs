@@ -11,7 +11,7 @@ namespace VideoPromotionApi.Models
     {
         public BitmapImage VideoImage { get; set; }
         public string Title { get; set; }
-        public int Duration { get; set; }
+        public string Duration { get; set; }
         public string Quality { get; set; }
         public string Uploader { get; set; }
         public List<string> Tags { get; set; }
@@ -20,7 +20,7 @@ namespace VideoPromotionApi.Models
         {
             VideoImage = videoImage;
             Title = title;
-            Duration = duration;
+            Duration = TimeSpan.FromSeconds(duration).ToString(@"mm\:ss");
             Quality = quality;
             Uploader = uploader;
             Tags = tags;
