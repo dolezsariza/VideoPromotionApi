@@ -10,11 +10,13 @@ namespace VideoPromotionApi.Services
 {
     public class VideoProcessor
     {
+        public string OriginalUrl { get; set; }
         public string Url { get; set; }
         public ApiHelper ApiHelper { get; set; }
         public VideoProcessor(ApiHelper apiHelper, string url)
         {
             ApiHelper = apiHelper;
+            OriginalUrl = url;
             Url = url;
         }
         public async Task<VideoModel> LoadVideo()
