@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using VideoPromotionApi.Models;
 using VideoPromotionApi.Services;
 
-namespace VideoPromotionApi
+namespace VideoPromotionApi.DesktopUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -32,7 +32,7 @@ namespace VideoPromotionApi
         public FileHandler FileHandler { get; set; }
         private string[] textData;
         private string baseUrl;
-   
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,15 +53,15 @@ namespace VideoPromotionApi
         private async Task LoadVideo()
         {
             var videoModel = await VideoProcessor.LoadVideo();
-            foreach(var video in videoModel.Data.Videos)
+            foreach (var video in videoModel.Data.Videos)
             {
                 var thumbnailLink = $"https:{video.PreviewImages[0]}";
                 var uriSource = new Uri(thumbnailLink, UriKind.Absolute);
-                var data = new Display(new BitmapImage(uriSource), 
-                    video.Title, 
-                    video.Duration, 
-                    video.Quality, 
-                    video.Uploader, 
+                var data = new Display(new BitmapImage(uriSource),
+                    video.Title,
+                    video.Duration,
+                    video.Quality,
+                    video.Uploader,
                     video.Tags);
                 data.Tags.Sort();
                 DataToShow.Add(data);

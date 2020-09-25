@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VideoPromotionApi
+namespace VideoPromotionApi.DesktopUI
 {
     /// <summary>
     /// Interaction logic for App.xaml

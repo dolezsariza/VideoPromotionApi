@@ -1,11 +1,11 @@
-﻿<Window x:Class="VideoPromotionApi.MainWindow"
+﻿<Window x:Class="VideoPromotionApi.DesktopUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VideoPromotionApi"
-        mc:Ignorable="d" Loaded="Window_Loaded" 
-        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        xmlns:local="clr-namespace:VideoPromotionApi.DesktopUI"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="Video Promotion API" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
                         <UniformGrid Columns="3" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Name="Video" Margin="15">
