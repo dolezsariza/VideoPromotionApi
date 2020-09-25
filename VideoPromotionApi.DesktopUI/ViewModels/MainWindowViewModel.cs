@@ -29,11 +29,7 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             FileHandler = new FileHandler();
             IPGetter = new IPGetter();
             DataToShow = new List<Display>();
-            textData = FileHandler.ReadFromFile();
-            UserName = textData[0];
-            API_KEY = textData[1];
-            IPAddress = IPGetter.GetIpOfHost();
-            var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}";
+            var url = GetUrl();
             VideoProcessor = new VideoProcessor(ApiHelper, url);
         }
         public async Task LoadVideo()
@@ -52,6 +48,16 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
                 data.Tags.Sort();
                 DataToShow.Add(data);
             }
+        }
+
+        private string GetUrl()
+        {
+            textData = FileHandler.ReadFromFile();
+            UserName = textData[0];
+            API_KEY = textData[1];
+            IPAddress = IPGetter.GetIpOfHost();
+            var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}";
+            return url;
         }
     }
 }
