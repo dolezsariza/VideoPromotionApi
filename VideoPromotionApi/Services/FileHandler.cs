@@ -10,7 +10,7 @@ namespace VideoPromotionApi.Services
     {
         public string[] ReadFromFile()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"VideoPromotionApi\..\..\..\Assets\API.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\..\VideoPromotionApi\Assets\API.txt");
 
             return lines;
         }
