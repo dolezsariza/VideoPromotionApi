@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VideoPromotionApi.DesktopUI.ViewModels;
-
+using VideoPromotionApi.Services;
 
 namespace VideoPromotionApi.DesktopUI
 {
@@ -36,5 +37,14 @@ namespace VideoPromotionApi.DesktopUI
             await _mwvm.LoadVideo();
             videoDataList.ItemsSource = _mwvm.DataToShow;
         }
+
+        private async void ChooseFilter_Click(object sender, RoutedEventArgs e)
+        {
+            var quality = Quality.Text.ToString().ToLower();
+            var uploader = Uploader.Text.ToString();
+            await _mwvm.FilterVideo(quality, uploader);
+            
+        }
+
     }
 }

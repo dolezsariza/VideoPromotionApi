@@ -6,22 +6,35 @@
         xmlns:local="clr-namespace:VideoPromotionApi.DesktopUI"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Video Promotion API" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-            <StackPanel x:Name="Navbar" VerticalAlignment="Top" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="previousButton" Padding="15" Margin="15">Previous</Button>
-                <Button x:Name="nextButton" Padding="15" Margin="15">Next</Button>
-            </StackPanel>
+        <DockPanel x:Name="Filter" VerticalAlignment="Top"  Grid.Row="0">
+            <ToolBarTray DockPanel.Dock="Top">
+                <ToolBar>
+                    <ComboBox Name="Quality" Margin="0" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Quality">
+                        <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                        <ComboBoxItem>SD</ComboBoxItem>
+                        <ComboBoxItem>HD</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Name="Uploader" Margin="0" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Uploader">
+                        <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                        <ComboBoxItem>LiveJasmin</ComboBoxItem>
+                    </ComboBox>
+                    <Button x:Name="ChooseFilter" Click="ChooseFilter_Click" Height="20" Width="50" Margin="0">Filter</Button>
+                </ToolBar>
+            </ToolBarTray>
+        </DockPanel>
 
-            <ItemsControl Grid.Row="1" Name="videoDataList">
+        <ScrollViewer Grid.Row="1" Margin="15" Name="VideoScroller" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="450" CanContentScroll="True">
+            <ItemsControl  Name="videoDataList" Grid.Row="1" Width="1150">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" />
+                        <UniformGrid Columns="3"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
