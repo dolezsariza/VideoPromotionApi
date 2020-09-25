@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VideoPromotionApi.Properties
+namespace VideoPromotionApi.DesktopUI.Properties
 {
 
 
