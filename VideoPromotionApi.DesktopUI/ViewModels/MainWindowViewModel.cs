@@ -56,7 +56,7 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             UserName = textData[0];
             API_KEY = textData[1];
             IPAddress = IPGetter.GetIpOfHost();
-            var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}";
+            var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}&limit=25";
             return url;
         }
     }
