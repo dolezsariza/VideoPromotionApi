@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
         public string UserName { get; set; }
         public string API_KEY { get; set; }
         public string IPAddress { get; set; }
-        public List<Display> DataToShow { get; set; }
+        public ObservableCollection<Display> DataToShow { get; set; }
         public ApiHelper ApiHelper { get; set; }
         public VideoProcessor VideoProcessor { get; set; }
         public IPGetter IPGetter { get; set; }
@@ -28,12 +29,13 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             ApiHelper = new ApiHelper(baseUrl);
             FileHandler = new FileHandler();
             IPGetter = new IPGetter();
-            DataToShow = new List<Display>();
+            DataToShow = new ObservableCollection<Display>();
             var url = GetUrl();
             VideoProcessor = new VideoProcessor(ApiHelper, url);
         }
         public async Task LoadVideo()
         {
+            DataToShow.Clear();
             var videoModel = await VideoProcessor.LoadVideo();
             foreach (var video in videoModel.Data.Videos)
             {
@@ -42,12 +44,23 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
                 var data = new Display(new BitmapImage(uriSource),
                     video.Title,
                     video.Duration,
-                    video.Quality,
+                    video.Quality.ToUpper(),
                     video.Uploader,
                     video.Tags);
                 data.Tags.Sort();
                 DataToShow.Add(data);
             }
+        }
+
+        public async Task FilterVideo(string quality, string uploader)
+        {
+            var newUrl = VideoProcessor.OriginalUrl;
+            newUrl += !quality.Equals("All") ? $"&quality={quality}" : "";
+            newUrl += !uploader.Equals("All") ? $"&uploader={uploader}" : "";
+
+            VideoProcessor.Url = newUrl;
+            await LoadVideo();
+
         }
 
         private string GetUrl()
