@@ -34,6 +34,7 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             var url = GetUrl();
             VideoProcessor = new VideoProcessor(ApiHelper, url);
         }
+
         public async Task LoadVideo()
         {
             DataToShow.Clear();
@@ -64,6 +65,37 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             VideoProcessor.Url = newUrl;
             await LoadVideo();
 
+        }
+
+        public async Task ChangePage(string page)
+        {
+            var pageUrl = VideoProcessor.Url;
+            var currentPage = Pagination.CurrentPage;
+            if (pageUrl.Contains("pageIndex"))
+            {
+                int index = pageUrl.LastIndexOf("&");
+                pageUrl = pageUrl.Substring(0, index);
+            }
+            switch (page)
+            {
+                case "first":
+                    currentPage = 1;
+                    break;
+                case "previous":
+                    if(currentPage > 1)
+                        currentPage--;
+                    break;
+                case "next":
+                    if (currentPage < Pagination.TotalPages)
+                        currentPage++;
+                    break;
+                case "last":
+                    currentPage = Pagination.TotalPages;
+                    break;
+            }
+            pageUrl += $"&pageIndex={currentPage}";
+            VideoProcessor.Url = pageUrl;
+            await LoadVideo();
         }
 
         private string GetUrl()
