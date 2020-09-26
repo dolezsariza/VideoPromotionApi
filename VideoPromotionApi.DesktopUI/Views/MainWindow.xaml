@@ -26,7 +26,7 @@
                         <ComboBoxItem IsSelected="True">All</ComboBoxItem>
                         <ComboBoxItem>LiveJasmin</ComboBoxItem>
                     </ComboBox>
-                    <Button x:Name="ChooseFilter" Click="ChooseFilter_Click" Height="20" Width="50" Margin="0">Filter</Button>
+                    <Button x:Name="ChooseFilter" Click="ChooseFilter_Clicked" Height="20" Width="50" Margin="0">Filter</Button>
                 </ToolBar>
             </ToolBarTray>
         </DockPanel>
@@ -76,23 +76,20 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <DockPanel x:Name="Pagination" VerticalAlignment="Bottom" Grid.Row="2" Margin="10" >
-            <ToolBarTray DockPanel.Dock="Bottom">
-                <ToolBar>
-                    <Button x:Name="firstButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="goToFirstPage">&lt;&lt;</Button>
-                    <Button x:Name="previousButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="goToPreviousPage">&lt;</Button>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} of {1}">
-                                <Binding Path="CurrentPage" />
-                                <Binding Path="TotalPages" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                    <Button x:Name="nextButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="goToNextPage">></Button>
-                    <Button x:Name="lastButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="goToLastPage">>></Button>
-                </ToolBar>
-            </ToolBarTray>
+        <DockPanel HorizontalAlignment="Center" x:Name="Pagination" VerticalAlignment="Bottom" Grid.Row="2" Margin="10">
+            <Button x:Name="firstButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToFirstPage" IsEnabled="False">&lt;&lt;</Button>
+            <Button x:Name="previousButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToPreviousPage" IsEnabled="False">&lt;</Button>
+            <TextBlock x:Name="pages" VerticalAlignment="Center" >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} of {1}">
+                        <Binding Path="CurrentPage" />
+                        <Binding Path="TotalPages" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Button x:Name="nextButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToNextPage">></Button>
+            <Button x:Name="lastButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToLastPage">>></Button>
         </DockPanel>
+
     </Grid>
 </Window>
