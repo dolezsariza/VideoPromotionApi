@@ -47,5 +47,23 @@ namespace VideoPromotionApi.DesktopUI
             
         }
 
+        private void goToPreviousPage(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void goToNextPage(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void goToFirstPage(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void goToLastPage(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
