@@ -103,6 +103,12 @@
             </TextBlock>
             <Button x:Name="nextButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToNextPage">></Button>
             <Button x:Name="lastButton" Padding="5" Margin="20,5" BorderBrush="White" BorderThickness="2" Click="GoToLastPage">>></Button>
+
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Hyperlink NavigateUri="http://www.awempire.com" RequestNavigate="Hyperlink_RequestNavigate">
+                    Provided by AWEmpire
+                </Hyperlink>
+            </TextBlock>
         </DockPanel>
 
     </Grid>
