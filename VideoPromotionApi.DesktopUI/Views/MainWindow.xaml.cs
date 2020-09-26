@@ -36,6 +36,7 @@ namespace VideoPromotionApi.DesktopUI
         {
             await _mwvm.LoadVideo();
             videoDataList.ItemsSource = _mwvm.DataToShow;
+            Pagination.DataContext = _mwvm.Pagination;
         }
 
         private async void ChooseFilter_Click(object sender, RoutedEventArgs e)
