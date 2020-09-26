@@ -11,9 +11,17 @@ namespace VideoPromotionApi.Services
     {
         public string GetIpOfHost()
         {
-            string hostName = Dns.GetHostName();
-            string hostIP = Dns.GetHostEntry(hostName).AddressList[1].ToString();
-            return hostIP;
+            try
+            {
+                string hostName = Dns.GetHostName();
+                string hostIP = Dns.GetHostEntry(hostName).AddressList[1].ToString();
+                return hostIP;
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return "";
+            }
         }
     }
 }
