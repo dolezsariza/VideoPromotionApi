@@ -38,21 +38,39 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
         public async Task LoadVideo()
         {
             DataToShow.Clear();
-            var videoModel = await VideoProcessor.LoadVideo();
-            Pagination = videoModel.Data.Pagination;
-
-            foreach (var video in videoModel.Data.Videos)
+            try
             {
-                var thumbnailLink = $"https:{video.PreviewImages[0]}";
-                var uriSource = new Uri(thumbnailLink, UriKind.Absolute);
-                var data = new Display(new BitmapImage(uriSource),
-                    video.Title,
-                    video.Duration,
-                    video.Quality.ToUpper(),
-                    video.Uploader,
-                    video.Tags);
-                data.Tags.Sort();
-                DataToShow.Add(data);
+                var videoModel = await VideoProcessor.LoadVideo();
+            
+                Pagination = videoModel.Data.Pagination;
+
+                foreach (var video in videoModel.Data.Videos)
+                {
+                    var thumbnailLink = $"https:{video.PreviewImages[0]}";
+                    var uriSource = new Uri(thumbnailLink, UriKind.Absolute);
+                    var data = new Display(new BitmapImage(uriSource),
+                        video.Title,
+                        video.Duration,
+                        video.Quality.ToUpper(),
+                        video.Uploader,
+                        video.Tags);
+                    data.Tags.Sort();
+                    DataToShow.Add(data);
+                }
+            } 
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                var uriSource = new Uri("https://www.iconfinder.com/data/icons/image-1/64/Image-12-512.png", UriKind.Absolute);
+                var substitute = new Display(new BitmapImage(uriSource),
+                    "No videos found, please check, if you're connected to the internet and provided the correct PSID and access key in Assets\\API.txt!",
+                    0, "", "", null);
+                Pagination = new Pagination()
+                {
+                    CurrentPage = 1,
+                    TotalPages = 0
+                };
+                DataToShow.Add(substitute);
             }
         }
 
@@ -100,7 +118,15 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
 
         private string GetUrl()
         {
-            textData = FileHandler.ReadFromFile();
+            try
+            {
+                textData = FileHandler.ReadFromFile();
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return baseUrl;
+            }
             UserName = textData[0];
             API_KEY = textData[1];
             IPAddress = IPGetter.GetIpOfHost();
