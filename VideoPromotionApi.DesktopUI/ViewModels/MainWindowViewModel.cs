@@ -16,6 +16,7 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
         public string API_KEY { get; set; }
         public string IPAddress { get; set; }
         public ObservableCollection<Display> DataToShow { get; set; }
+        public Pagination Pagination { get; set; }
         public ApiHelper ApiHelper { get; set; }
         public VideoProcessor VideoProcessor { get; set; }
         public IPGetter IPGetter { get; set; }
@@ -37,6 +38,8 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
         {
             DataToShow.Clear();
             var videoModel = await VideoProcessor.LoadVideo();
+            Pagination = videoModel.Data.Pagination;
+
             foreach (var video in videoModel.Data.Videos)
             {
                 var thumbnailLink = $"https:{video.PreviewImages[0]}";
@@ -72,5 +75,6 @@ namespace VideoPromotionApi.DesktopUI.ViewModels
             var url = $"{baseUrl}?psid={UserName}&accessKey={API_KEY}&clientIp={IPAddress}&limit=25";
             return url;
         }
+
     }
 }
