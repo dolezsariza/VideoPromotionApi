@@ -1,35 +1,49 @@
-﻿<Window x:Class="VideoPromotionApi.DesktopUI.MainWindow"
+﻿<mah:MetroWindow x:Class="VideoPromotionApi.DesktopUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:VideoPromotionApi.DesktopUI"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Video Promotion API" Height="600" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="LiveJasmin" Height="650" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <DockPanel x:Name="Filter" VerticalAlignment="Top"  Grid.Row="0">
-            <ToolBarTray DockPanel.Dock="Top">
-                <ToolBar>
-                    <ComboBox Name="Quality" Margin="0" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Quality">
-                        <ComboBoxItem IsSelected="True">All</ComboBoxItem>
-                        <ComboBoxItem>SD</ComboBoxItem>
-                        <ComboBoxItem>HD</ComboBoxItem>
-                        <ComboBoxItem>FHD</ComboBoxItem>
-                        <ComboBoxItem>UHD</ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox Name="Uploader" Margin="0" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Uploader">
-                        <ComboBoxItem IsSelected="True">All</ComboBoxItem>
-                        <ComboBoxItem>LiveJasmin</ComboBoxItem>
-                    </ComboBox>
-                    <Button x:Name="ChooseFilter" Click="ChooseFilter_Clicked" Height="20" Width="50" Margin="0">Filter</Button>
-                </ToolBar>
-            </ToolBarTray>
-        </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="750"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0" x:Name="Filter" VerticalAlignment="Center"  Grid.Row="0" HorizontalAlignment="Center">
+                <TextBlock Text="Quality:" Margin="5" VerticalAlignment="Center"/>
+                <ComboBox Name="Quality" Margin="5" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Quality">
+                    <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                    <ComboBoxItem>SD</ComboBoxItem>
+                    <ComboBoxItem>HD</ComboBoxItem>
+                    <ComboBoxItem>FHD</ComboBoxItem>
+                    <ComboBoxItem>UHD</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text="Uploader:" Margin="5" VerticalAlignment="Center"/>
+                <ComboBox Name="Uploader" Margin="5" Width="85" Focusable="False" IsEditable="True" IsReadOnly="True" Text="Uploader">
+                    <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                    <ComboBoxItem>LiveJasmin</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="ChooseFilter" Click="ChooseFilter_Clicked" Height="20" Width="50" Margin="0">Filter</Button>
+            </DockPanel>
+            <Grid Grid.Column="1" Margin="20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="15,5" Grid.Row="0" FontSize="35" FontWeight="Light" FontFamily="Broadway" TextAlignment="Left" >A whole new world...</TextBlock>
+                <TextBlock Margin="15,0" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" FontFamily="Ink Free"  TextAlignment="Right">...to help you rub your lamp</TextBlock>
+            </Grid>
+        </Grid>
 
         <ScrollViewer Grid.Row="1" Margin="15" Name="VideoScroller" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="450" CanContentScroll="True">
             <ItemsControl  Name="videoDataList" Grid.Row="1" Width="1150">
@@ -92,4 +106,4 @@
         </DockPanel>
 
     </Grid>
-</Window>
+</mah:MetroWindow>
